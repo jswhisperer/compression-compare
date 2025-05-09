@@ -1,20 +1,16 @@
-// import { compress, decompress, init } from '@bokuweb/zstd-wasm';
-// import { ZstdInit } from '@oneidentity/zstd-js';
-// import { CompressionStream, DecompressionStream } from '@ungap/compression-stream';
-// import byteSize from 'byte-size';
-// import LZString from 'lz-string';
-
 import {Buffer} from 'https://cdn.jsdelivr.net/npm/buffer@6.0.3/+esm'
 import { compress, decompress, init } from 'https://cdn.jsdelivr.net/npm/@bokuweb/zstd-wasm@0.0.27/+esm'
 import { ZstdInit } from'https://cdn.jsdelivr.net/npm/@oneidentity/zstd-js@1.0.3/+esm'
-import { CompressionStream, DecompressionStream } from 'https://cdn.jsdelivr.net/npm/@ungap/compression-stream@0.1.0/+esm'
+import brotli from 'https://cdn.jsdelivr.net/npm/brotli-js@1.0.2/+esm';
+// import { CompressionStream, DecompressionStream } from 'https://cdn.jsdelivr.net/npm/@ungap/compression-stream@0.1.0/+esm' // nodejs shim
 import byteSize from 'https://cdn.jsdelivr.net/npm/byte-size@7.0.0/+esm'
 import LZString from 'https://cdn.jsdelivr.net/npm/lz-string@1.4.4/+esm'
 
 
 
-const sampleData = Array.from("hi".repeat(999999))
+const sampleData = Array.from("hi".repeat(999999));
 
+const data = new Uint8Array(sampleData);
 
 const fileSizeReadable = (fileSizeInBytes) => {
     const fileSize = byteSize(fileSizeInBytes);
@@ -42,7 +38,7 @@ ZstdInit().then(({ZstdSimple, ZstdStream}) => {
   // Create some sample data to compress
   // const data  = new Uint8Array(Array.from("hi".repeat(9999)).toString());
 
-  const data = new Uint8Array(sampleData)
+ 
 
   const compressionLevel = 20;
 
@@ -106,4 +102,10 @@ async function compressAPI(str) {
 const compressedBytes = await compressAPI(sampleData.toString());
 const decompressedBytes = await decompressGzip(compressedBytes);
 console.table(
-    {"gzip uncompressed": fileSizeReadable(decompressedBytes.length), "gzip compressed": fileSizeReadable(compressedBytes.length), });
+    {"gzip uncompressed": fileSizeReadable(decompressedBytes.length), "gzip compressed": fileSizeReadable(compressedBytes.length) });
+
+    const compressedBrotli = brotli.compressArray(data, 6)
+    console.table({"brotli compressed": fileSizeReadable(compressedBrotli.length)});
+
+  
+
