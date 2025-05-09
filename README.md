@@ -2,10 +2,11 @@
 
 A comparison of some compression solutions available in the Browser / Client
 
-- zstd-wasm
-- zstd-js
-- lz-string
-- native browser compressionstream api
+- [zstd-wasm](https://github.com/bokuweb/zstd-wasm)
+- [zstd-js](https://github.com/OneIdentity/zstd-js)
+- [lz-string](https://pieroxy.net/blog/pages/lz-string/index.html)
+- [brotlijs](https://github.com/dominikhlbg/brotlijs)
+- [native browser compressionstream api](https://developer.mozilla.org/en-US/docs/Web/API/CompressionStream#examples)
 
 to run in the browser, 
 ```javascript
