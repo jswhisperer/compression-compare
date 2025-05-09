@@ -5,6 +5,7 @@ A comparison of some compression solutions available in the Browser / Client
 - zstd-wasm
 - zstd-js
 - lz-string
+- native browser compressionstream api
 
 to run in the browser, 
 ```javascript
