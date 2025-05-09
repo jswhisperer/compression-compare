@@ -104,7 +104,7 @@ const decompressedBytes = await decompressGzip(compressedBytes);
 console.table(
     {"gzip uncompressed": fileSizeReadable(decompressedBytes.length), "gzip compressed": fileSizeReadable(compressedBytes.length) });
 
-    const compressedBrotli = brotli.compressArray(data, 6)
+    const compressedBrotli = brotli.compressArray(data, 11)
     console.table({"brotli compressed": fileSizeReadable(compressedBrotli.length)});
 
   
