@@ -1,0 +1,68 @@
+lockfileVersion: '9.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+importers:
+
+  .:
+    dependencies:
+      '@bokuweb/zstd-wasm':
+        specifier: ^0.0.27
+        version: 0.0.27
+      '@oneidentity/zstd-js':
+        specifier: ^1.0.3
+        version: 1.0.3
+      '@ungap/compression-stream':
+        specifier: ^0.1.0
+        version: 0.1.0
+      byte-size:
+        specifier: ^9.0.1
+        version: 9.0.1
+      lz-string:
+        specifier: ^1.5.0
+        version: 1.5.0
+
+packages:
+
+  '@bokuweb/zstd-wasm@0.0.27':
+    resolution: {integrity: sha512-GDm2uOTK3ESjnYmSeLQifJnBsRCWajKLvN32D2ZcQaaCIJI/Hse9s74f7APXjHit95S10UImsRGkTsbwHmrtmg==}
+
+  '@oneidentity/zstd-js@1.0.3':
+    resolution: {integrity: sha512-Jm6sawqxLzBrjC4sg2BeXToa33yPzUmq20CKsehKY2++D/gHb/oSwVjNgT+RH4vys+r8FynrgcNzGwhZWMLzfQ==}
+
+  '@types/emscripten@1.40.1':
+    resolution: {integrity: sha512-sr53lnYkQNhjHNN0oJDdUm5564biioI5DuOpycufDVK7D3y+GR3oUswe2rlwY1nPNyusHbrJ9WoTyIHl4/Bpwg==}
+
+  '@ungap/compression-stream@0.1.0':
+    resolution: {integrity: sha512-e3cfA7Z6n6BLDU4s/MWhsufFrIYiuiNudilD5OUoB3MGTRjc07hlTBpN552WjC5KPSEIrKtNS4lob/0p5Ot+Ig==}
+
+  byte-size@9.0.1:
+    resolution: {integrity: sha512-YLe9x3rabBrcI0cueCdLS2l5ONUKywcRpTs02B8KP9/Cimhj7o3ZccGrPnRvcbyHMbb7W79/3MUJl7iGgTXKEw==}
+    engines: {node: '>=12.17'}
+    peerDependencies:
+      '@75lb/nature': latest
+    peerDependenciesMeta:
+      '@75lb/nature':
+        optional: true
+
+  lz-string@1.5.0:
+    resolution: {integrity: sha512-h5bgJWpxJNswbU7qCrV0tIKQCaS3blPDrqKWx+QxzuzL1zGUzij9XCWLrSLsJPu5t+eWA/ycetzYAO5IOMcWAQ==}
+    hasBin: true
+
+snapshots:
+
+  '@bokuweb/zstd-wasm@0.0.27': {}
+
+  '@oneidentity/zstd-js@1.0.3':
+    dependencies:
+      '@types/emscripten': 1.40.1
+
+  '@types/emscripten@1.40.1': {}
+
+  '@ungap/compression-stream@0.1.0': {}
+
+  byte-size@9.0.1: {}
+
+  lz-string@1.5.0: {}
