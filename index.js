@@ -9,8 +9,9 @@ import LZString from 'https://cdn.jsdelivr.net/npm/lz-string@1.4.4/+esm'
 
 
 const sampleData = Array.from("hi".repeat(999999));
-
 const data = new Uint8Array(sampleData);
+
+const results = []
 
 const fileSizeReadable = (fileSizeInBytes) => {
     const fileSize = byteSize(fileSizeInBytes);
@@ -25,11 +26,12 @@ const fileSizeReadable = (fileSizeInBytes) => {
   const res = decompress(compressed);
   const response = Buffer.from(res).toString();
   var compressedLZ = LZString.compress(sampleData.toString());
-
-  console.table({
+  results.push({
+     "------------------------------------------": "",
     "zstd-wasm uncompressed": fileSizeReadable(Buffered.byteLength), "zstd-wasm compressed": fileSizeReadable(compressed.byteLength),
     "LZ compressed": fileSizeReadable(compressedLZ.length),
-    "are they equal?": sampleData.toString() === response});
+    })
+  // console.table();
 })();
 
 
@@ -45,15 +47,10 @@ ZstdInit().then(({ZstdSimple, ZstdStream}) => {
   const compressedStreamData = ZstdStream.compress(data, compressionLevel);
   const decompressedStreamData = ZstdStream.decompress(compressedStreamData);
 
-  console.table({"zstd-js uncompressed": fileSizeReadable(decompressedStreamData.byteLength), "compressed": fileSizeReadable(compressedStreamData.byteLength)});
+results.push({"zstd-js uncompressed": fileSizeReadable(decompressedStreamData.byteLength), "compressed": fileSizeReadable(compressedStreamData.byteLength)});
 });
 
-/**
- * Convert a string to its UTF-8 bytes and compress it.
- *
- * @param {string} str
- * @returns {Promise<Uint8Array>}
- */
+
 async function compressAPI(str) {
     // Convert the string to a byte stream.
     const stream = new Blob([str]).stream();
@@ -101,11 +98,35 @@ async function compressAPI(str) {
 
 const compressedBytes = await compressAPI(sampleData.toString());
 const decompressedBytes = await decompressGzip(compressedBytes);
-console.table(
-    {"gzip uncompressed": fileSizeReadable(decompressedBytes.length), "gzip compressed": fileSizeReadable(compressedBytes.length) });
+
+results.push({ "--------------------------------------------": "", "compressedAPI uncompressed": fileSizeReadable(sampleData.toString().length), "compressed": fileSizeReadable(compressedBytes.length), "decompressed": fileSizeReadable(decompressedBytes.length)});
 
     const compressedBrotli = brotli.compressArray(data, 11)
-    console.table({"brotli compressed": fileSizeReadable(compressedBrotli.length)});
+   results.push({
+    "---------------------------------------------": "",
+    "brotli compressed": fileSizeReadable(compressedBrotli.length)})
+    const mappedResults = results.reduce(function(result, current) {
+      return Object.assign(result, current);
+    }, {})
+   console.table(mappedResults);
+
+   let builtTable = "";
+   
+   const makeTable = () => {
+    for (const [key, value] of Object.entries(mappedResults)) {
+      builtTable += `<tr>
+      <td>${key}</td>
+      <td>${value}</td>
+     </tr>`
+    }
+   }
+
+   makeTable()
+
+
+   if(window?.document) {
+    document.querySelector("table tbody").innerHTML = builtTable;
+   }
 
   
 
